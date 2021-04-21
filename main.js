@@ -1,5 +1,3 @@
-import Peer from "https://cdn.skypack.dev/peerjs@1.3.2";
-
 var p = new Peer();
 var c;
 var peerName = "Them";
