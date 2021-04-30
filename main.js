@@ -60,6 +60,8 @@ document.getElementById("peerSubmitBtn").addEventListener("click", function () {
 p.on("connection", (conn) => {
     document.getElementById("peerWrapper").style.display = "none";
     document.getElementById("nameWrapper").style.display = "block";
+	addMsg("Got connection");
+	
     conn.on("data", (data) => {
         var nameUpdate = data.search("update name to ");
         if (nameUpdate != -1) {
@@ -75,6 +77,7 @@ p.on("connection", (conn) => {
             addMsg(peerName + ": " + data);
         }
     });
+	
     document
         .getElementById("nameSubmitBtn")
         .addEventListener("click", function () {
@@ -89,6 +92,7 @@ p.on("connection", (conn) => {
                 document.getElementById("chatWrapper").style.display = "block";
             }
         });
+		
     document
         .getElementById("chatSubmitBtn")
         .addEventListener("click", function () {
@@ -101,7 +105,9 @@ p.on("connection", (conn) => {
 });
 
 function addMsg(msg) {
+	var d = new Date();
     var node = document.createElement("li");
-    node.innerHTML = msg;
-    document.getElementById("msgList").appendChild(node);
+	document.getElementById("msgList").insertBefore(node,document.getElementById("msgList").children[0]);
+    node.innerHTML = `${d.toLocaleString("en-GB")}:	${msg}`
+    
 }
